@@ -1,9 +1,11 @@
 import { DefaultTheme } from 'styled-components';
 
 const color = {
-    while: '#FFFFFF',
+    white: '#FFFFFF',
     black: '#000000',
     backpurple: '#2C2C54',
+    deeppurple: '#474787',
+    gray: '#CACACA',
 };
 
 const borderRadius = {

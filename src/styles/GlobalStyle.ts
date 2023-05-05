@@ -9,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
 body,html{
     background-color: #EFEBF7;
 };
+button, input, textarea{
+    all: unset;
+
+}
 
 `;
 
