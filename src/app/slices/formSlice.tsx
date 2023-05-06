@@ -1,8 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = [
+export interface ITitle {
+    id: number;
+    type: string;
+    title: string;
+    description: string;
+    question?: string;
+}
+
+export interface IForm {
+    id: number;
+    type: string;
+    question: string;
+}
+
+const initialState: (IForm | ITitle)[] = [
     { id: 0, type: 'title', title: '제목 없는 설문지', description: '' },
 ];
+
+let id = 0;
 
 const formSlice = createSlice({
     name: 'form',
@@ -20,8 +36,27 @@ const formSlice = createSlice({
                 description: action.payload.description,
             };
         },
+        addGeneralForm: (state) => {
+            return [...state, { id: ++id, type: '단답형', question: '' }];
+        },
+        deleteGeneralForm: (state, action) => {
+            return state.filter((data) => data.id !== action.payload.id);
+        },
+        editGeneralForm: (state, action) => {
+            state[action.payload.id] = {
+                ...state[action.payload.id],
+                question: action.payload.question,
+                type: action.payload.type,
+            };
+        },
     },
 });
 
 export default formSlice;
-export const { editTitleForm, editDescriptionForm } = formSlice.actions;
+export const {
+    editTitleForm,
+    editDescriptionForm,
+    addGeneralForm,
+    deleteGeneralForm,
+    editGeneralForm,
+} = formSlice.actions;

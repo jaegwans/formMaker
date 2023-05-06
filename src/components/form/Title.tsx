@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import InputTitle from './form/InputTitle';
-import InputSub from './form/InputSub';
+import InputTitle from './InputTitle';
+import InputSub from './InputSub';
 
 interface ITitle {
     title: string;
