@@ -11,7 +11,7 @@ export interface ITitle {
 
 export interface IForm {
     id: number;
-    type: string;
+    type: '단답형' | '장문형' | '객관식 질문' | '체크박스' | '드롭다운';
     question: string;
     answer?: {} | string;
     essential?: boolean;

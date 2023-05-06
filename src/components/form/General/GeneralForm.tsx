@@ -7,10 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editGeneralForm } from 'app/slices/formSlice';
 import { RootState } from 'app/store';
 import { Switch } from '@mui/material';
+import TextAnswer from './TextAnswer';
 
 interface IGeneralForm {
     id: number;
-    type: string;
+    type: '단답형' | '장문형' | '객관식 질문' | '체크박스' | '드롭다운';
     question: string;
     answer?: string;
     essential?: boolean;
@@ -68,6 +69,13 @@ function GeneralForm({ type, question, id, essential }: IGeneralForm) {
                     value={generalProps.type}
                 />
             </div>
+            <div>
+                {generalProps.type === '단답형' ||
+                generalProps.type === '장문형' ? (
+                    <TextAnswer type={generalProps.type} />
+                ) : null}
+            </div>
+
             <div className="CopyAndDelete">
                 <Delete id={generalProps.id} />
                 <Copy props={generalProps} />

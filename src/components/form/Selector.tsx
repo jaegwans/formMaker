@@ -25,4 +25,6 @@ const StyledSelect = styled.select`
     font-size: 1.1rem;
     height: 2rem;
     margin: 0.625rem 0;
+    border-color: ${({ theme }) => theme.color.gray};
+    border-radius: ${({ theme }) => theme.borderRadius.medium};
 `;

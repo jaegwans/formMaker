@@ -29,7 +29,14 @@ function App() {
                         <GeneralForm
                             key={data.id}
                             id={data.id}
-                            type={data.type}
+                            type={
+                                data.type as
+                                    | '단답형'
+                                    | '장문형'
+                                    | '객관식 질문'
+                                    | '체크박스'
+                                    | '드롭다운'
+                            }
                             question={data.question as string}
                             essential={data.essential}
                         />
