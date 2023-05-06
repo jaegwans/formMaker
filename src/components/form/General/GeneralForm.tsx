@@ -6,37 +6,51 @@ import Copy from './Copy';
 import { useDispatch, useSelector } from 'react-redux';
 import { editGeneralForm } from 'app/slices/formSlice';
 import { RootState } from 'app/store';
+import { Switch } from '@mui/material';
 
 interface IGeneralForm {
     id: number;
     type: string;
     question: string;
     answer?: string;
+    essential?: boolean;
 }
 
-function GeneralForm({ type, question, id }: IGeneralForm) {
+function GeneralForm({ type, question, id, essential }: IGeneralForm) {
     const dispatch = useDispatch();
-    useEffect(() => {
-        setGeneralProps({ id: id, type: type, question: question });
-    }, []);
+    // useEffect(() => {
+    //     setGeneralProps({ id: id, type: type, question: question });
+    // }, []);
 
     const [generalProps, setGeneralProps] = useState<IGeneralForm>({
         id: id,
         type: type,
         question: question,
+        essential: essential,
     });
-    const handleChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setGeneralProps({ ...generalProps, type: e.target.value });
+    const handleChange = (
+        e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+    ) => {
+        setGeneralProps({
+            ...generalProps,
+            [e.target.name]: e.target.value,
+        });
+        alert(e.target.value);
     };
-    const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setGeneralProps({ ...generalProps, question: e.target.value });
+    const handleChangeSwitch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setGeneralProps({
+            ...generalProps,
+            [e.target.name]: e.target.checked,
+        });
     };
+
     const handleBlur = () => {
         dispatch(
             editGeneralForm({
                 id: generalProps.id,
                 question: generalProps.question,
                 type: generalProps.type,
+                essential: generalProps.essential,
             })
         );
     };
@@ -45,18 +59,27 @@ function GeneralForm({ type, question, id }: IGeneralForm) {
             <div className="InputAndSelector">
                 <StyledInput
                     placeholder="질문"
-                    onChange={handleChangeInput}
+                    onChange={handleChange}
+                    name="question"
                     value={generalProps.question}
                 />
                 <Selector
-                    onChange={handleChangeSelect}
+                    name="type"
+                    onChange={handleChange}
                     value={generalProps.type}
                 />
             </div>
             <div className="CopyAndDelete">
-                {generalProps.id}
                 <Delete id={generalProps.id} />
                 <Copy props={generalProps} />
+                <label className="switch">
+                    <Switch
+                        checked={generalProps.essential}
+                        name="essential"
+                        onChange={handleChangeSwitch}
+                    />
+                    필수
+                </label>
             </div>
         </StyledGeneral>
     );
@@ -80,6 +103,9 @@ const StyledGeneral = styled.div`
     .InputAndSelector {
         display: flex;
         flex-direction: row;
+        .switch {
+            margin-left: 100px;
+        }
     }
 `;
 const StyledInput = styled.input`

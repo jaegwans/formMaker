@@ -6,12 +6,15 @@ export interface ITitle {
     title: string;
     description: string;
     question?: string;
+    essential?: boolean;
 }
 
 export interface IForm {
     id: number;
     type: string;
     question: string;
+    answer?: {} | string;
+    essential?: boolean;
 }
 
 const initialState: (IForm | ITitle)[] = [
@@ -37,7 +40,10 @@ const formSlice = createSlice({
             };
         },
         addGeneralForm: (state) => {
-            return [...state, { id: ++id, type: '단답형', question: '' }];
+            return [
+                ...state,
+                { id: ++id, type: '단답형', question: '', essential: false },
+            ];
         },
         deleteGeneralForm: (state, action) => {
             return state.filter((data) => data.id !== action.payload.id);
@@ -48,6 +54,7 @@ const formSlice = createSlice({
                 ...state[inx],
                 question: action.payload.question,
                 type: action.payload.type,
+                essential: action.payload.essential,
             };
         },
         copyGeneralForm: (state, action) => {
@@ -61,11 +68,20 @@ const formSlice = createSlice({
             // ];
             let inx = state.findIndex((data) => data.id === action.payload.id);
             state.splice(inx + 1, 0, {
+                // type: state[inx].type,
+                // question: state[inx].question as string,
+                // essential: action.payload.essential,
+                ...state[inx],
                 id: ++id,
-                type: state[inx].type,
-                question: state[inx].question as string,
             });
         },
+        // essentialGeneralForm: (state, action) => {
+        //     let inx = state.findIndex((data) => data.id === action.payload.id);
+        //     state[inx] = {
+        //         ...state[inx],
+        //         essential: !state[inx].essential,
+        //     };
+        // },
     },
 });
 
@@ -77,4 +93,5 @@ export const {
     deleteGeneralForm,
     editGeneralForm,
     copyGeneralForm,
+    // essentialGeneralForm,
 } = formSlice.actions;

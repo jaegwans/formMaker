@@ -4,10 +4,11 @@ import styled from 'styled-components';
 interface ISelector {
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
     value: string;
+    name?: string;
 }
-function Selector({ onChange, value }: ISelector) {
+function Selector({ onChange, value, name }: ISelector) {
     return (
-        <StyledSelect onChange={onChange} value={value}>
+        <StyledSelect onChange={onChange} value={value} name={name}>
             <option value="단답형">단답형</option>
             <option value="장문형">장문형</option>
             <option value="객관식 질문">객관식 질문</option>

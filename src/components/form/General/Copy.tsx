@@ -23,4 +23,7 @@ export default Copy;
 const StyledCopy = styled.div`
     cursor: pointer;
     margin: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;

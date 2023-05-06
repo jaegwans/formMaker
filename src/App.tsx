@@ -31,6 +31,7 @@ function App() {
                             id={data.id}
                             type={data.type}
                             question={data.question as string}
+                            essential={data.essential}
                         />
                     ))}
             </StyledItemWrapper>
