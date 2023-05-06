@@ -51,7 +51,7 @@ function GeneralForm({ type, question, id }: IGeneralForm) {
             <div className="CopyAndDelete">
                 {generalProps.id}
                 <Delete id={generalProps.id} />
-                <Copy />
+                <Copy id={generalProps.id} />
             </div>
         </StyledGeneral>
     );

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 
 export interface ITitle {
     id: number;
@@ -49,6 +49,21 @@ const formSlice = createSlice({
                 type: action.payload.type,
             };
         },
+        copyGeneralForm: (state, action) => {
+            // return [
+            //     ...state,
+            //     {
+            //         id: ++id,
+            //         type: state[action.payload.id].type,
+            //         question: state[action.payload.id].question as string,
+            //     },
+            // ];
+            state.splice(action.payload.id + 1, 0, {
+                id: ++id,
+                type: state[action.payload.id].type,
+                question: state[action.payload.id].question as string,
+            });
+        },
     },
 });
 
@@ -59,4 +74,5 @@ export const {
     addGeneralForm,
     deleteGeneralForm,
     editGeneralForm,
+    copyGeneralForm,
 } = formSlice.actions;

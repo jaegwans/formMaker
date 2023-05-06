@@ -1,8 +1,14 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { copyGeneralForm } from 'app/slices/formSlice';
 
-function Copy() {
-    return <StyledCopy>복사</StyledCopy>;
+function Copy({ id }: { id: number }) {
+    const dispatch = useDispatch();
+    const _onClickDelete = () => {
+        dispatch(copyGeneralForm({ id: id }));
+    };
+    return <StyledCopy onClick={_onClickDelete}>복사</StyledCopy>;
 }
 
 export default Copy;
