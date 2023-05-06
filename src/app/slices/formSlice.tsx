@@ -43,8 +43,9 @@ const formSlice = createSlice({
             return state.filter((data) => data.id !== action.payload.id);
         },
         editGeneralForm: (state, action) => {
-            state[action.payload.id] = {
-                ...state[action.payload.id],
+            let inx = state.findIndex((data) => data.id === action.payload.id);
+            state[inx] = {
+                ...state[inx],
                 question: action.payload.question,
                 type: action.payload.type,
             };
@@ -58,10 +59,11 @@ const formSlice = createSlice({
             //         question: state[action.payload.id].question as string,
             //     },
             // ];
-            state.splice(action.payload.id + 1, 0, {
+            let inx = state.findIndex((data) => data.id === action.payload.id);
+            state.splice(inx + 1, 0, {
                 id: ++id,
-                type: state[action.payload.id].type,
-                question: state[action.payload.id].question as string,
+                type: state[inx].type,
+                question: state[inx].question as string,
             });
         },
     },

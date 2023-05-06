@@ -1,14 +1,21 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { copyGeneralForm } from 'app/slices/formSlice';
+import { copyGeneralForm, editGeneralForm } from 'app/slices/formSlice';
 
-function Copy({ id }: { id: number }) {
+function Copy({ props }: any) {
     const dispatch = useDispatch();
-    const _onClickDelete = () => {
-        dispatch(copyGeneralForm({ id: id }));
+    const _onClickCopy = () => {
+        // dispatch(
+        //     editGeneralForm({
+        //         id: props.id,
+        //         question: props.question,
+        //         type: props.type,
+        //     })
+        // );
+        dispatch(copyGeneralForm({ id: props.id }));
     };
-    return <StyledCopy onClick={_onClickDelete}>복사</StyledCopy>;
+    return <StyledCopy onClick={_onClickCopy}>복사</StyledCopy>;
 }
 
 export default Copy;

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Selector from '../Selector';
 import Delete from './Delete';
 import Copy from './Copy';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { editGeneralForm } from 'app/slices/formSlice';
+import { RootState } from 'app/store';
 
 interface IGeneralForm {
     id: number;
@@ -15,6 +16,10 @@ interface IGeneralForm {
 
 function GeneralForm({ type, question, id }: IGeneralForm) {
     const dispatch = useDispatch();
+    useEffect(() => {
+        setGeneralProps({ id: id, type: type, question: question });
+    }, []);
+
     const [generalProps, setGeneralProps] = useState<IGeneralForm>({
         id: id,
         type: type,
@@ -51,7 +56,7 @@ function GeneralForm({ type, question, id }: IGeneralForm) {
             <div className="CopyAndDelete">
                 {generalProps.id}
                 <Delete id={generalProps.id} />
-                <Copy id={generalProps.id} />
+                <Copy props={generalProps} />
             </div>
         </StyledGeneral>
     );
