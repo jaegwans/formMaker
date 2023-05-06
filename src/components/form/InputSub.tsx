@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
-function InputTitle() {
+import { editDescriptionForm } from 'app/slices/formSlice';
+
+function InputTitle({ description }: { description: string }) {
+    const dispatch = useDispatch();
+
     const [InputValue, setInputValue] = useState('');
     const _onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
+    };
+    const _onBlurInput = () => {
+        dispatch(
+            editDescriptionForm({ title: InputValue, description: InputValue })
+        );
+        // alert(description);
     };
 
     return (
@@ -13,6 +24,7 @@ function InputTitle() {
             value={InputValue}
             placeholder="설문지 설명"
             onChange={_onChangeInput}
+            onBlur={_onBlurInput}
         />
     );
 }

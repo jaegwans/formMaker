@@ -1,12 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 import Title from 'components/Title';
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/store';
+import { editDescriptionForm } from 'app/slices/formSlice';
+import FormSelector from 'components/FormSelector';
+import SideBar from 'components/side/SideBar';
+import GeneralForm from 'components/form/GeneralForm';
 
 function App() {
+    const form = useSelector((state: RootState) => {
+        return state;
+    });
+
     return (
         <StyledMain>
+            <SideBar />
             <StyledItemWrapper>
-                <Title />
+                {/* <Title /> */}
+                {form.form.map((data) => (
+                    <FormSelector props={data} key={data.id} />
+                ))}
+                <GeneralForm />
             </StyledItemWrapper>
         </StyledMain>
     );
@@ -24,6 +39,8 @@ const StyledMain = styled.div`
 `;
 
 const StyledItemWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 37.5rem;
-    gap: 1rem;
+    gap: 3rem;
 `;

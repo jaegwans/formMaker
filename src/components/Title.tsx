@@ -3,11 +3,16 @@ import styled from 'styled-components';
 import InputTitle from './form/InputTitle';
 import InputSub from './form/InputSub';
 
-function Title() {
+interface ITitle {
+    title: string;
+    description: string;
+}
+
+function Title({ title, description }: ITitle) {
     return (
         <StyledTitle>
-            <InputTitle />
-            <InputSub />
+            <InputTitle title={title} />
+            <InputSub description={description} />
         </StyledTitle>
     );
 }

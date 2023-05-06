@@ -6,6 +6,7 @@ const color = {
     backpurple: '#2C2C54',
     deeppurple: '#474787',
     gray: '#CACACA',
+    deepgray: '#A5A5A5',
 };
 
 const borderRadius = {

@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { editTitleForm } from 'app/slices/formSlice';
+
 //onBlur 이용 전역 저장
 
-function InputTitle() {
+function InputTitle({ title }: { title: string }) {
+    const dispatch = useDispatch();
+
     const [InputValue, setInputValue] = useState('제목 없는 설문지');
     const _onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     };
+    const _onBlurInput = () => {
+        // alert(title);
+        dispatch(editTitleForm({ title: InputValue, description: InputValue }));
+    };
 
     return (
-        <StyledInput type="text" value={InputValue} onChange={_onChangeInput} />
+        <StyledInput
+            type="text"
+            value={InputValue}
+            onChange={_onChangeInput}
+            onBlur={_onBlurInput}
+        />
     );
 }
 

@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
+import formSlice from './slices/formSlice';
 
 export const store = configureStore({
     reducer: {
-        //추후 slice에서 가져온 리듀서 추가
+        form: formSlice.reducer,
     },
 });
 
