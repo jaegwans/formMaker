@@ -35,7 +35,6 @@ function GeneralForm({ type, question, id, essential }: IGeneralForm) {
             ...generalProps,
             [e.target.name]: e.target.value,
         });
-        alert(e.target.value);
     };
     const handleChangeSwitch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setGeneralProps({
