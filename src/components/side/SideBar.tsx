@@ -12,13 +12,12 @@ function SideBar() {
 
     return (
         <>
-            <StyledSideBar onClick={_onClickSideBar}>추가</StyledSideBar>;
+            <StyledSideBar onClick={_onClickSideBar}>추가</StyledSideBar>
             <Link to={'/preview'}>
                 <StyledSidePreview>
                     <div>미리보기</div>
                 </StyledSidePreview>
             </Link>
-            ;
         </>
     );
 }
