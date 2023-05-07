@@ -7,13 +7,14 @@ export interface ITitle {
     description: string;
     question?: string;
     essential?: boolean;
+    answer?: any;
 }
 
 export interface IForm {
     id: number;
     type: '단답형' | '장문형' | '객관식 질문' | '체크박스' | '드롭다운';
     question: string;
-    answer?: {} | string;
+    answer?: any;
     essential?: boolean;
 }
 
@@ -42,7 +43,13 @@ const formSlice = createSlice({
         addGeneralForm: (state) => {
             return [
                 ...state,
-                { id: ++id, type: '단답형', question: '', essential: false },
+                {
+                    id: ++id,
+                    type: '단답형',
+                    question: '',
+                    essential: false,
+                    answer: [{ id: 0, value: '' }],
+                },
             ];
         },
         deleteGeneralForm: (state, action) => {
@@ -55,6 +62,7 @@ const formSlice = createSlice({
                 question: action.payload.question,
                 type: action.payload.type,
                 essential: action.payload.essential,
+                answer: action.payload.answer,
             };
         },
         copyGeneralForm: (state, action) => {
@@ -75,13 +83,6 @@ const formSlice = createSlice({
                 id: ++id,
             });
         },
-        // essentialGeneralForm: (state, action) => {
-        //     let inx = state.findIndex((data) => data.id === action.payload.id);
-        //     state[inx] = {
-        //         ...state[inx],
-        //         essential: !state[inx].essential,
-        //     };
-        // },
     },
 });
 
@@ -93,5 +94,4 @@ export const {
     deleteGeneralForm,
     editGeneralForm,
     copyGeneralForm,
-    // essentialGeneralForm,
 } = formSlice.actions;

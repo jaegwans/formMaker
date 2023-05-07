@@ -39,6 +39,7 @@ function App() {
                             }
                             question={data.question as string}
                             essential={data.essential}
+                            answer={data.answer}
                         />
                     ))}
             </StyledItemWrapper>

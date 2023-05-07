@@ -8,16 +8,26 @@ import { editGeneralForm } from 'app/slices/formSlice';
 import { RootState } from 'app/store';
 import { Switch } from '@mui/material';
 import TextAnswer from './TextAnswer';
+import InterAnswer from './InterAnswer';
+
+// 1.객관식 질문:라디오 ㅇ
+// 2.체크박스 ㅇ
+// 3.드롭다운 :select ㅇ
+// 추가와 제거 버튼ㅇ
+// 라우팅
+// 5-1. 미리보기 구현
+//5-2. 제출 구현
+// readme 작성
 
 interface IGeneralForm {
     id: number;
     type: '단답형' | '장문형' | '객관식 질문' | '체크박스' | '드롭다운';
     question: string;
-    answer?: string;
+    answer?: [];
     essential?: boolean;
 }
 
-function GeneralForm({ type, question, id, essential }: IGeneralForm) {
+function GeneralForm({ type, question, id, essential, answer }: IGeneralForm) {
     const dispatch = useDispatch();
     // useEffect(() => {
     //     setGeneralProps({ id: id, type: type, question: question });
@@ -28,6 +38,7 @@ function GeneralForm({ type, question, id, essential }: IGeneralForm) {
         type: type,
         question: question,
         essential: essential,
+        answer: answer,
     });
     const handleChange = (
         e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
@@ -51,11 +62,13 @@ function GeneralForm({ type, question, id, essential }: IGeneralForm) {
                 question: generalProps.question,
                 type: generalProps.type,
                 essential: generalProps.essential,
+                answer: generalProps.answer,
             })
         );
     };
     return (
         <StyledGeneral onBlur={handleBlur}>
+            {JSON.stringify(generalProps)}
             <div className="InputAndSelector">
                 <StyledInput
                     placeholder="질문"
@@ -73,7 +86,13 @@ function GeneralForm({ type, question, id, essential }: IGeneralForm) {
                 {generalProps.type === '단답형' ||
                 generalProps.type === '장문형' ? (
                     <TextAnswer type={generalProps.type} />
-                ) : null}
+                ) : (
+                    <InterAnswer
+                        type={generalProps.type}
+                        generalProps={generalProps}
+                        setGeneralProps={setGeneralProps}
+                    />
+                )}
             </div>
 
             <div className="CopyAndDelete">
