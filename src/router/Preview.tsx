@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import styled from 'styled-components';
 import FormSelector from 'components/preview/FormSelectorView';
 import PreviewSelector from 'components/preview/PreviewSelector';
 
+// 각각 타입에 따른 미리보기 컴포넌트 만들기
+// 응답 받는 state 만들기
+interface IRes {
+    question: string;
+    response: any;
+}
+
 function Preview() {
+    const [res, setRes] = useState<IRes[] | []>([]);
     const { form } = useSelector((state: RootState) => {
         return state;
     });
@@ -13,6 +21,8 @@ function Preview() {
         <StyledMain>
             <StyledItemWrapper>
                 {JSON.stringify(form)}
+                <br />
+                {JSON.stringify(res)}
                 <FormSelector props={form[0]} key={form[0].id} />
                 {form
                     .filter((data) => data.id !== 0)
@@ -31,8 +41,13 @@ function Preview() {
                             question={data.question as string}
                             essential={data.essential}
                             answer={data.answer}
+                            setRes={setRes}
+                            res={res}
                         />
                     ))}
+                <div>
+                    <StyledSubmit>제출</StyledSubmit>
+                </div>
             </StyledItemWrapper>
         </StyledMain>
     );
@@ -54,4 +69,9 @@ const StyledItemWrapper = styled.div`
     flex-direction: column;
     width: 37.5rem;
     gap: 1rem;
+`;
+
+const StyledSubmit = styled.div`
+    cursor: pointer;
+    text-align: center;
 `;
