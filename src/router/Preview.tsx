@@ -4,6 +4,8 @@ import { RootState } from 'app/store';
 import styled from 'styled-components';
 import FormSelector from 'components/preview/FormSelectorView';
 import PreviewSelector from 'components/preview/PreviewSelector';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 // 각각 타입에 따른 미리보기 컴포넌트 만들기
 // 응답 받는 state 만들기
@@ -17,8 +19,9 @@ function Preview() {
     const { form } = useSelector((state: RootState) => {
         return state;
     });
+    const navigate = useNavigate();
     const _onClickSubmit = () => {
-        console.log(res);
+        navigate('/response', { state: res });
     };
 
     return (
@@ -51,7 +54,12 @@ function Preview() {
                         />
                     ))}
                 <div>
-                    <StyledSubmit onClick={_onClickSubmit}>제출</StyledSubmit>
+                    <StyledSubmit
+                        // to={`/response?data=${JSON.stringify(res)}`}
+                        onClick={_onClickSubmit}
+                    >
+                        제출
+                    </StyledSubmit>
                 </div>
             </StyledItemWrapper>
         </StyledMain>
@@ -79,4 +87,8 @@ const StyledItemWrapper = styled.div`
 const StyledSubmit = styled.div`
     cursor: pointer;
     text-align: center;
+    text-decoration: none;
+    color: ${({ theme }) => theme.color.black};
+    display: flex;
+    justify-content: center;
 `;

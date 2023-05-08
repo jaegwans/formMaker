@@ -1,6 +1,7 @@
 import React from 'react';
 import Main from 'router/Main';
 import Preview from 'router/Preview';
+import Response from 'router/Response';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/preview" element={<Preview />} />
+                <Route path="/response" element={<Response />} />
             </Routes>
         </BrowserRouter>
     );
