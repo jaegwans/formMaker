@@ -21,7 +21,7 @@ function Main() {
                 {/* {form.form.map((data) => (
                     <FormSelector props={data} key={data.id} />
                 ))} */}
-                {JSON.stringify(form)}
+
                 <FormSelector props={form[0]} key={form[0].id} />
                 {form
                     .filter((data) => data.id !== 0)

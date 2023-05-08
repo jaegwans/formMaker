@@ -4,11 +4,16 @@ import styled from 'styled-components';
 
 function Response() {
     const { state } = useLocation();
-    console.log(state);
 
     return (
         <StyledMain>
             <StyledItemWrapper>
+                {state && (
+                    <>
+                        <h1>{state[0].title}</h1>
+                        <h3>{state[0].description}</h3>
+                    </>
+                )}
                 {state.map((item: any, key: number) => (
                     <div key={key}>
                         <h1>Q.{item.question}</h1>

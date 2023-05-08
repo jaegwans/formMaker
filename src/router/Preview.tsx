@@ -19,6 +19,7 @@ function Preview() {
     const { form } = useSelector((state: RootState) => {
         return state;
     });
+
     const navigate = useNavigate();
     const _onClickSubmit = () => {
         navigate('/response', { state: res });
@@ -26,11 +27,9 @@ function Preview() {
 
     return (
         <StyledMain>
-            {JSON.stringify(res)}
             <StyledItemWrapper>
-                {JSON.stringify(form)}
                 <br />
-                {JSON.stringify(res)}
+
                 <FormSelector props={form[0]} key={form[0].id} />
                 {form
                     .filter((data) => data.id !== 0)
@@ -54,12 +53,7 @@ function Preview() {
                         />
                     ))}
                 <div>
-                    <StyledSubmit
-                        // to={`/response?data=${JSON.stringify(res)}`}
-                        onClick={_onClickSubmit}
-                    >
-                        제출
-                    </StyledSubmit>
+                    <StyledSubmit onClick={_onClickSubmit}>제출</StyledSubmit>
                 </div>
             </StyledItemWrapper>
         </StyledMain>

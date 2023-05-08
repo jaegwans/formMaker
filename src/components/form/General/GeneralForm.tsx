@@ -10,15 +10,6 @@ import { Switch } from '@mui/material';
 import TextAnswer from './TextAnswer';
 import InterAnswer from './InterAnswer';
 
-// 1.객관식 질문:라디오 ㅇ
-// 2.체크박스 ㅇ
-// 3.드롭다운 :select ㅇ
-// 추가와 제거 버튼ㅇ
-// 라우팅
-// 5-1. 미리보기 구현
-//5-2. 제출 구현
-// readme 작성
-
 interface IGeneralForm {
     id: number;
     type: '단답형' | '장문형' | '객관식 질문' | '체크박스' | '드롭다운';
@@ -68,7 +59,6 @@ function GeneralForm({ type, question, id, essential, answer }: IGeneralForm) {
     };
     return (
         <StyledGeneral onBlur={handleBlur}>
-            {JSON.stringify(generalProps)}
             <div className="InputAndSelector">
                 <StyledInput
                     placeholder="질문"
