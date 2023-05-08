@@ -22,6 +22,28 @@ function PreviewSelector({
     res,
 }: IGeneralForm) {
     const [resValue, setResValue] = useState<any>();
+    const [checkList, setCheckList] = useState<any>(
+        answer.map((item: any) => {
+            return {
+                id: item.id,
+                value: item.value,
+                checked: false,
+            };
+        })
+    );
+    const handleCheckboxChange = (id: number) => {
+        const updatedCheckboxes = checkList.map((checkbox: any) =>
+            checkbox.id === id
+                ? { ...checkbox, isChecked: !checkbox.isChecked }
+                : checkbox
+        );
+        setCheckList(updatedCheckboxes);
+    };
+
+    const handleChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setResValue(e.target.value);
+    };
+
     const handleChangeText = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -34,6 +56,17 @@ function PreviewSelector({
     const handleBlur = () => {
         const copyRes = res === undefined ? [] : [...res];
         copyRes[id - 1] = { question: question, response: resValue };
+        setRes(copyRes);
+    };
+    const handleBlurCheckbox = () => {
+        const copyRes = res === undefined ? [] : [...res];
+        copyRes[id - 1] = {
+            question: question,
+            response: checkList
+                .filter((item: any) => item.isChecked)
+                .map((item: any) => item.value)
+                .join(','),
+        };
         setRes(copyRes);
     };
 
@@ -82,17 +115,18 @@ function PreviewSelector({
         );
     if (type === '체크박스')
         return (
-            <div onBlur={handleBlur}>
+            <div onBlur={handleBlurCheckbox}>
                 <h2>Q:{question}</h2>
-                {JSON.stringify(answer)}
-                {answer?.map((item: any, key: any) => {
+                {JSON.stringify(checkList)}
+                {checkList.map((item: any, key: any) => {
                     return (
                         <div>
                             <StyledInputList
                                 type="checkbox"
                                 name="res"
-                                onChange={handleChangeRadio}
                                 value={item.value}
+                                checked={item.isChecked}
+                                onChange={() => handleCheckboxChange(item.id)}
                                 key={key}
                             />
                             {item.value as string}
@@ -103,8 +137,17 @@ function PreviewSelector({
         );
     if (type === '드롭다운')
         return (
-            <div>
+            <div onBlur={handleBlur}>
                 <h2>Q:{question}</h2>
+                <select name="res" onChange={handleChangeSelect}>
+                    {answer?.map((item: any, key: any) => {
+                        return (
+                            <option value={item.value} key={key}>
+                                {item.value}
+                            </option>
+                        );
+                    })}
+                </select>
             </div>
         );
     else return <div>error</div>;

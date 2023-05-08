@@ -17,8 +17,13 @@ function Preview() {
     const { form } = useSelector((state: RootState) => {
         return state;
     });
+    const _onClickSubmit = () => {
+        console.log(res);
+    };
+
     return (
         <StyledMain>
+            {JSON.stringify(res)}
             <StyledItemWrapper>
                 {JSON.stringify(form)}
                 <br />
@@ -46,7 +51,7 @@ function Preview() {
                         />
                     ))}
                 <div>
-                    <StyledSubmit>제출</StyledSubmit>
+                    <StyledSubmit onClick={_onClickSubmit}>제출</StyledSubmit>
                 </div>
             </StyledItemWrapper>
         </StyledMain>
